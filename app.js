@@ -21,7 +21,7 @@ async function main() {
   const filePath = './tourism_with_id.csv'; // Replace with your CSV file path
   try {
     let placeNames = await readCSV(filePath);
-    placeNames = placeNames.slice(0, 10);
+    placeNames = placeNames.slice(0, 50);
     // console.log('Place Names:', placeNames);
 
     let imageData = await getImageUrls(placeNames);
