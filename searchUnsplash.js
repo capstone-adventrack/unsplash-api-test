@@ -27,6 +27,13 @@ class Unsplash {
           };
         });
         // console.log('images', images);
+        if (images.length === 0) {
+          console.error(`No images found for ${query}`);
+          images.push({
+            id: null,
+            url: null,
+          });
+        }
         return images;
       } else {
         console.error(`Error: ${response.status} - ${response.statusText}`);

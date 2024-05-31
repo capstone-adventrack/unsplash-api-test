@@ -10,11 +10,17 @@ function addToString(str, value) {
 }
 
 async function readCSV(filePath) {
-  const placeNames = [];
+  const places = [];
   const readStream = fs.createReadStream(filePath).pipe(csv());
 
   for await (const data of readStream) {
+    let placeId = '';
     let placeName = '';
+
+    // Check if the data has a 'Place_Id' key
+    if (data['Place_Id']) {
+      placeId = addToString(placeId, data['Place_Id']);
+    }
 
     // Check if the data has a 'Place_Name' key
     if (data['Place_Name']) {
@@ -26,10 +32,13 @@ async function readCSV(filePath) {
     //   placeName = addToString(placeName, data['City']);
     // }
 
-    placeNames.push(placeName);
+    places.push({
+      id: placeId,
+      name: placeName,
+    });
   }
 
-  return placeNames;
+  return places;
 }
 
 module.exports = readCSV;
